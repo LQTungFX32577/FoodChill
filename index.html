@@ -308,7 +308,7 @@
         <h1>Đặt Đồ Uống & Đồ Ăn Vặt - Chill cuối tuần</h1>
         <p>
           Chọn món bạn thích rồi bấm <b>Đặt</b> để hoàn tất. Nhập mã
-          <span class="kbd">Chanie</span> để được giảm giá <b>100%</b> ✨
+          <span class="kbd">einahc</span> để được giảm giá <b>100%</b> ✨
         </p>
         <div class="progress" aria-label="Tiến độ">
           <div class="bar" id="bar"></div>
@@ -572,7 +572,7 @@
         <h3 style="margin:0 0 8px; color:var(--gold)">Chi tiết đơn hàng</h3>
         <table style="width:100%; border-collapse:collapse">${rows}</table>
         <div class="voucher">
-          <input id="voucher" placeholder="Nhập mã giảm giá (ví dụ: Chanie)"/>
+          <input id="voucher" placeholder="Nhập mã giảm giá (ví dụ: einahC)"/>
           <button class="cta ghost" id="apply">Áp dụng</button>
         </div>
         <div class="total" id="total">Tạm tính: ${VND(
@@ -591,13 +591,13 @@
               toastMsg('Hãy nhập mã giảm giá');
               return;
             }
-            if (code.toLowerCase() === 'chanie') {
+            if (code.toLowerCase() === 'einahc') {
               totalEl.textContent = `Tạm tính: ${VND(
                 subtotal
               )} • Giảm giá: ${VND(subtotal)} • Tổng: ${VND(0)}`;
-              toastMsg('🎉 Áp mã Chanie thành công – Giảm 100%!');
+              toastMsg('🎉 Áp mã einahc thành công – Giảm 100%!');
               // Gửi mail cập nhật nếu áp voucher
-              sendEmail({ ...order, voucher: 'Chanie', total: 0 });
+              sendEmail({ ...order, voucher: 'einahc', total: 0 });
             } else {
               totalEl.textContent = `Tạm tính: ${VND(
                 subtotal
@@ -638,4 +638,5 @@
     </script>
   </body>
 </html>
+
 
