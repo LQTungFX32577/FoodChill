@@ -2,254 +2,110 @@
 <html lang="vi">
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Leo Vibes – Đặt Đồ Uống</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Mini Game✨</title>
     <style>
-      :root {
-        --bg: #0b0d12;
-        --card: #121622;
-        --muted: #8a90a0;
-        --text: #eaeef7;
-        --gold: #ffb300;
-        --teal: #00a98a;
-        --accent: #ff7a59;
-        --shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
-        --radius: 18px;
-      }
-      * {
-        box-sizing: border-box;
-      }
       body {
         margin: 0;
-        font-family: ui-sans-serif, system-ui;
-        color: var(--text);
-        background: var(--bg);
-        overflow-x: hidden;
-      }
-      .container {
-        max-width: 980px;
-        margin: 0 auto;
-        padding: 28px 18px 92px;
-      }
-
-      .hero {
-        padding: 24px;
-        border-radius: var(--radius);
-        background: linear-gradient(
-          135deg,
-          rgba(255, 179, 0, 0.18),
-          rgba(0, 169, 138, 0.18)
-        );
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        box-shadow: var(--shadow);
-      }
-      .hero h1 {
-        margin: 2px 0 8px;
-        font-size: 28px;
-      }
-      .hero p {
-        margin: 0;
-        color: var(--muted);
-      }
-      .badge {
-        display: inline-flex;
-        align-items: center;
-        gap: 8px;
-        font-size: 13px;
-        color: #111;
-        background: linear-gradient(90deg, #ffd34e, #ffb300);
-        border-radius: 999px;
-        padding: 8px 12px;
-        font-weight: 700;
-        text-transform: uppercase;
-      }
-      .badge .dot {
-        width: 10px;
-        height: 10px;
-        border-radius: 50%;
-        background: #fff;
-        box-shadow: 0 0 12px #fff, 0 0 30px #fff;
-      }
-
-      .progress {
-        position: relative;
-        margin: 18px 0 0;
-        height: 12px;
-        background: #0f1320;
-        border-radius: 999px;
+        font-family: 'Poppins', ui-sans-serif, system-ui;
+        background: radial-gradient(circle at top left, #2a1b3d, #0d0b14);
+        color: #f5f4fb;
         overflow: hidden;
+        cursor: none; /* ẩn cursor mặc định */
       }
-      .bar {
-        height: 100%;
-        width: 0;
-        background: linear-gradient(90deg, var(--gold), #ffd34e, #fff);
-        box-shadow: 0 0 20px rgba(255, 179, 0, 0.5);
-        transition: width 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
-      }
-      .car {
-        position: absolute;
-        top: -18px;
+
+      /* Con trỏ custom */
+      #cursor {
+        position: fixed;
+        top: 0;
         left: 0;
-        height: 32px;
-        transition: left 0.45s cubic-bezier(0.2, 0.8, 0.2, 1);
+        width: 40px;
+        height: 40px;
+        pointer-events: none;
+        transform: translate(-50%, -50%);
+        font-size: 28px;
+        z-index: 9999;
+        transition: transform 0.1s linear;
+      }
+
+      /* Hiệu ứng sao rơi */
+      .stars {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+      .star {
+        position: absolute;
+        width: 2px;
+        height: 60px;
+        background: linear-gradient(-45deg, #ffd34e, transparent);
+        border-radius: 50%;
+        animation: fall linear infinite;
+      }
+      @keyframes fall {
+        from {
+          transform: translateY(-100px) translateX(0);
+          opacity: 1;
+        }
+        to {
+          transform: translateY(100vh) translateX(-50px);
+          opacity: 0;
+        }
+      }
+
+      .container {
+        max-width: 760px;
+        margin: auto;
+        padding: 24px;
+        position: relative;
+        z-index: 1;
+      }
+
+      h1 {
+        font-size: 28px;
+        text-align: center;
+        margin: 0;
+        background: linear-gradient(90deg, #ffd34e, #ff5f9e, #7b61ff);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 900;
+        text-shadow: 0 0 20px rgba(255, 179, 0, 0.5);
+        animation: glow 3s infinite alternate;
+      }
+      @keyframes glow {
+        from {
+          text-shadow: 0 0 12px #ffb300, 0 0 24px #7b61ff;
+        }
+        to {
+          text-shadow: 0 0 20px #ff5f9e, 0 0 36px #ffd34e;
+        }
       }
 
       .card {
-        margin-top: 22px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.02),
-          rgba(255, 255, 255, 0.01)
-        );
-        border: 1px solid rgba(255, 255, 255, 0.08);
-        border-radius: var(--radius);
-        padding: 18px;
-        box-shadow: var(--shadow);
-      }
-      .q-title {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        font-weight: 800;
-        margin-bottom: 12px;
-      }
-      .q-title .pill {
-        font-size: 12px;
-        padding: 6px 10px;
-        border-radius: 999px;
-        background: rgba(255, 179, 0, 0.14);
-        color: #ffd34e;
-        border: 1px solid rgba(255, 179, 0, 0.25);
-      }
-
-      .options {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-      }
-      .btn {
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        background: #0e1220;
-        color: var(--text);
-        padding: 12px 14px;
-        border-radius: 14px;
-        transition: all 0.18s ease;
-        font-weight: 700;
-        font-size: 14px;
-      }
-      .btn:hover,
-      .btn:focus {
-        transform: translateY(-1px);
-        box-shadow: 0 8px 18px rgba(0, 0, 0, 0.35);
-        outline: none;
-      }
-      .btn.selected {
-        background: linear-gradient(
-          180deg,
-          rgba(255, 179, 0, 0.16),
-          rgba(255, 179, 0, 0.05)
-        );
-        border-color: rgba(255, 179, 0, 0.55);
-        box-shadow: 0 0 0 2px rgba(255, 179, 0, 0.25) inset;
-      }
-
-      .footer {
-        position: sticky;
-        bottom: 0;
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        justify-content: center;
-        padding: 12px;
-        background: linear-gradient(
-          180deg,
-          rgba(11, 13, 18, 0),
-          rgba(11, 13, 18, 0.85) 40%
-        );
-        backdrop-filter: blur(6px);
-      }
-      .cta {
-        cursor: pointer;
-        padding: 12px 16px;
-        border-radius: 12px;
-        border: 0;
-        font-weight: 900;
-        background: linear-gradient(90deg, var(--teal), #22e7c6);
-        color: #061014;
-        box-shadow: 0 10px 28px rgba(0, 169, 138, 0.35);
-        transition: transform 0.12s ease;
-      }
-      .cta.ghost {
-        background: transparent;
-        color: var(--text);
+        margin-top: 30px;
+        padding: 30px;
+        border-radius: 20px;
+        background: rgba(255, 255, 255, 0.06);
         border: 1px solid rgba(255, 255, 255, 0.15);
-        box-shadow: none;
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55),
+          inset 0 0 20px rgba(255, 179, 0, 0.15);
+        min-height: 70vh;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        animation: fadeIn 0.5s ease;
       }
-      .cta:disabled {
-        opacity: 0.5;
-        filter: grayscale(30%);
-        box-shadow: none;
-        cursor: not-allowed;
-      }
-      .cta:hover {
-        transform: translateY(-1px);
-      }
-
-      .toast {
-        position: fixed;
-        right: 16px;
-        top: 16px;
-        background: #0f1424;
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        color: var(--text);
-        padding: 12px 14px;
-        border-radius: 12px;
-        box-shadow: var(--shadow);
-        opacity: 0;
-        transform: translateY(-10px);
-        transition: all 0.28s ease;
-      }
-      .toast.show {
-        opacity: 1;
-        transform: translateY(0);
-      }
-
-      .result {
-        margin-top: 24px;
-        display: none;
-      }
-      .result.show {
-        display: block;
-      }
-      .panel {
-        background: linear-gradient(
-          180deg,
-          rgba(0, 169, 138, 0.08),
-          rgba(255, 179, 0, 0.06)
-        );
-        border: 1px solid rgba(255, 255, 255, 0.12);
-        padding: 16px;
-        border-radius: 16px;
-      }
-      .kbd {
-        display: inline-block;
-        padding: 2px 8px;
-        border-radius: 6px;
-        border: 1px solid rgba(255, 255, 255, 0.18);
-        background: #0d1220;
-        font-family: ui-monospace, SFMono-Regular, Menlo, Consolas,
-          'Liberation Mono', monospace;
-        font-size: 12px;
-      }
-
-      .slide-in {
-        animation: slideIn 0.28s ease both;
-      }
-      @keyframes slideIn {
+      @keyframes fadeIn {
         from {
           opacity: 0;
-          transform: translateY(6px);
+          transform: translateY(10px);
         }
         to {
           opacity: 1;
@@ -257,386 +113,353 @@
         }
       }
 
-      .price {
-        opacity: 0.9;
+      h2 {
+        font-size: 22px;
+        margin-bottom: 24px;
+        font-weight: 700;
         color: #ffd34e;
-        font-weight: 800;
-        font-size: 13px;
-        background: rgba(255, 179, 0, 0.08);
-        border: 1px solid rgba(255, 179, 0, 0.18);
-        border-radius: 10px;
-        padding: 4px 8px;
+        text-shadow: 0 0 10px rgba(255, 179, 0, 0.6);
+        white-space: pre-line;
       }
-      .qty {
-        display: inline-flex;
-        align-items: center;
-        gap: 6px;
-        margin-left: 8px;
-      }
-      .qty button {
-        border: 1px solid rgba(255, 255, 255, 0.14);
-        background: #0e1220;
-        color: var(--text);
-        border-radius: 10px;
-        padding: 4px 8px;
-        cursor: pointer;
-      }
-      .voucher {
+
+      .options {
         display: flex;
-        gap: 8px;
-        margin-top: 12px;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: center;
+        width: 100%;
       }
-      .voucher input {
-        flex: 1;
+
+      .btn {
+        flex: 1 1 40%;
+        max-width: 200px;
+        padding: 22px; /* to hơn cho dễ bấm */
+        border-radius: 20px;
+        cursor: pointer;
+        background: linear-gradient(135deg, #1e1830, #2d2250);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        font-weight: 700;
+        font-size: 18px; /* chữ to hơn */
+        color: #fff;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+      }
+      .btn:hover {
+        transform: scale(1.1);
+        background: linear-gradient(135deg, #3a2a60, #1f1738);
+        box-shadow: 0 0 30px rgba(255, 179, 0, 0.6); /* glow vàng */
+      }
+      .btn.selected {
+        border-color: #ffd34e;
+        background: linear-gradient(
+          135deg,
+          rgba(255, 211, 78, 0.2),
+          rgba(255, 95, 158, 0.2)
+        );
+        box-shadow: 0 0 20px rgba(255, 179, 0, 0.6),
+          0 0 35px rgba(123, 97, 255, 0.5);
+        transform: scale(1.1);
+      }
+
+      input {
+        width: 80%;
+        padding: 14px;
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.25);
+        background: #1e1830;
+        color: #fff;
+        margin-top: 14px;
+        font-size: 15px;
+        text-align: center;
+      }
+
+      .img-options {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 16px;
+        justify-content: center;
+        margin-top: 16px;
+        width: 100%;
+      }
+      .img-options img {
+        width: 30%;
+        border-radius: 14px;
+        cursor: pointer;
+        border: 3px solid transparent;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+        object-fit: cover;
+      }
+      .img-options img:hover {
+        transform: scale(1.05);
+        box-shadow: 0 6px 20px rgba(255, 211, 78, 0.4);
+      }
+      .img-options img.selected {
+        border-color: #ffd34e;
+        box-shadow: 0 0 25px rgba(255, 179, 0, 0.6);
+        transform: scale(1.07);
+      }
+
+      .footer {
+        margin-top: 20px;
+        text-align: center;
+      }
+      .cta {
+        padding: 14px 28px;
+        border-radius: 14px;
+        border: 0;
+        background: linear-gradient(90deg, #ffd34e, #ff5f9e, #7b61ff);
+        color: #fff;
+        font-weight: 800;
+        font-size: 16px;
+        cursor: pointer;
+        box-shadow: 0 8px 24px rgba(255, 179, 0, 0.45);
+        transition: all 0.25s ease;
+      }
+      .cta:hover {
+        transform: scale(1.08);
+      }
+
+      .toast {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        background: #1f1633;
+        padding: 12px 16px;
         border-radius: 10px;
-        border: 1px solid rgba(255, 255, 255, 0.15);
-        background: #0e1220;
-        color: var(--text);
-        padding: 10px 12px;
+        opacity: 0;
+        transition: 0.3s;
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+        z-index: 1000;
       }
-      .total {
-        margin-top: 10px;
-        font-weight: 900;
+      .toast.show {
+        opacity: 1;
       }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
   </head>
   <body>
+    <!-- hiệu ứng sao -->
+    <div class="stars" id="stars"></div>
+
+    <!-- con trỏ custom -->
+    <div id="cursor">🌠</div>
+
     <div class="container">
-      <div class="hero">
-        <div class="badge"><span class="dot"></span> Chill Mode: ON 🦁</div>
-        <h1>Đặt Đồ Uống & Đồ Ăn Vặt - Chill cuối tuần</h1>
-        <p>
-          Chọn món bạn thích rồi bấm <b>Đặt</b> để hoàn tất. Nhập mã
-          <span class="kbd">einahc</span> để được giảm giá <b>100%</b> ✨
-        </p>
-        <div class="progress" aria-label="Tiến độ">
-          <div class="bar" id="bar"></div>
-          <div class="car" id="car" aria-hidden="true">🚗</div>
-        </div>
-      </div>
-
-      <div id="quiz" class="card slide-in" aria-live="polite"></div>
-
+      <h1>♌ Mini Game ✨</h1>
+      <div id="quiz" class="card"></div>
       <div class="footer">
-        <button class="cta ghost" id="reset">↺ Làm lại</button>
-        <div style="flex: 1"></div>
-        <button class="cta ghost" id="prev">⟵ Quay lại</button>
         <button class="cta" id="next" disabled>Tiếp tục →</button>
-        <button class="cta" id="finish" style="display: none">
-          🛒 Đặt món
-        </button>
       </div>
-
-      <section class="result" id="result">
-        <h2>🛒 Xác nhận đơn hàng</h2>
-        <div class="panel" id="summaryDeck"></div>
-      </section>
     </div>
 
-    <div class="toast" id="toast">✅ Đã cập nhật thông tin</div>
+    <div id="toast" class="toast">✅ Đã lưu lựa chọn</div>
 
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <script>
-      (function () {
-        const VND = (n) => n.toLocaleString('vi-VN') + '₫';
-        const $ = (s) => document.querySelector(s);
-        const quiz = $('#quiz');
-        const bar = $('#bar');
-        const car = $('#car');
-        const nextBtn = $('#next');
-        const prevBtn = $('#prev');
-        const finishBtn = $('#finish');
-        const resetBtn = $('#reset');
-        const result = $('#result');
-        const summary = $('#summaryDeck');
-        const toast = $('#toast');
+      // ⭐ hiệu ứng sao rơi
+      const starContainer = document.getElementById('stars');
+      function createStar() {
+        const star = document.createElement('div');
+        star.className = 'star';
+        star.style.left = Math.random() * window.innerWidth + 'px';
+        star.style.animationDuration = 1 + Math.random() * 2 + 's';
+        starContainer.appendChild(star);
+        setTimeout(() => star.remove(), 3000);
+      }
+      setInterval(createStar, 300);
 
-        // ===== EmailJS Config =====
-        const EMAIL_ENABLED = true;
+      // ✨ custom cursor
+      const cursor = document.getElementById('cursor');
+      document.addEventListener('mousemove', (e) => {
+        cursor.style.left = e.pageX + 'px';
+        cursor.style.top = e.pageY + 'px';
+      });
+
+      (function () {
+        const quiz = document.getElementById('quiz');
+        const nextBtn = document.getElementById('next');
+        const toast = document.getElementById('toast');
+
+        // EmailJS config
         const EMAIL_CONFIG = {
           service: 'service_5fzh97a',
           template: 'template_3jt6jjc',
           publicKey: 'YcvYWxme0JxNruaJl',
           to: 'alobachin@gmail.com',
         };
-        try {
-          if (EMAIL_ENABLED && window.emailjs) {
-            emailjs.init?.(EMAIL_CONFIG.publicKey);
-          }
-        } catch (_) {
-          /* noop */
-        }
-
-        // Menu & giá (tham khảo)
-        const PRICES = {
-          drink: {
-            'Nước ép cam': 45000,
-            'Soda dâu': 42000,
-            'Sinh tố xoài': 52000,
-            'Sữa chua Hạ Long': 48000,
-            'Phúc Bồn tử Đác Cam': 70000,
-            'Chanh đá xay': 55000,
-          },
-          sizeMul: { Nhỏ: 1, Vừa: 1.2, Lớn: 1.4 },
-          snack: {
-            'Bánh tráng trộn': 35000,
-            'Bánh croissant choco': 22000,
-            'Panna cotta': 35000,
-            Tiramisu: 38000,
-            'Trái cây cắt': 28000,
-            'Không chọn thêm': 0,
-          },
-        };
+        if (window.emailjs) emailjs.init(EMAIL_CONFIG.publicKey);
 
         const QUESTIONS = [
           {
-            key: 'drink',
-            label: 'Chọn loại nước yêu thích',
-            options: Object.keys(PRICES.drink),
+            key: 'mood',
+            label: 'Hôm nay của bạn thế nào?',
+            type: 'choice',
+            options: ['Hơi đuối', 'Nhẹ nhàng thoi'],
           },
           {
-            key: 'snack',
-            label: 'Chọn đồ ăn vặt đi kèm',
-            options: Object.keys(PRICES.snack),
-          },
-          { key: 'size', label: 'Kích cỡ ly', options: ['Nhỏ', 'Vừa', 'Lớn'] },
-          {
-            key: 'sugar',
-            label: 'Mức đường',
-            options: ['Ít đường', 'Vừa ngọt', 'Ngọt nhiều'],
+            key: 'game',
+            label: 'Bạn sẽ chơi một trò chơi nhỏ cùng với tôi chứ?',
+            type: 'yesno',
           },
           {
-            key: 'ice',
-            label: 'Mức đá',
-            options: ['Không đá', 'Ít đá', 'Nhiều đá'],
+            key: 'quiz',
+            label:
+              'Tôi là họ nhà mèo nhưng tôi rất to lớn, tôi là chúa tể sơn lâm vậy tôi là ai ?',
+            type: 'choice',
+            options: ['Sư tử', 'Hello Kitty', 'Simba'],
+          },
+          {
+            key: 'riddle1',
+            label: 'Con gì mang được cả ngôi nhà trên lưng? 🏠',
+            type: 'choice',
+            options: ['Ốc sên', 'Con rùa', 'Con cua'],
+          },
+          {
+            key: 'riddle2',
+            label: 'Cái gì càng lấy đi thì càng to ra? 😅',
+            type: 'choice',
+            options: ['Cái lỗ', 'Cái túi', 'Cái hộp'],
+          },
+          {
+            key: 'stress',
+            label: 'Bạn thường hay làm gì mỗi khi stress?',
+            type: 'input',
+            placeholder: 'Nếu là tớ thì tớ sẽ ....khò khò 😂',
+          },
+          {
+            key: 'voucher',
+            label:
+              'Chúc mừng bạn đã chiến thắng mini game và nhận được 1 chuyến du lịch xả stress cuối tuần, xin mời chọn địa điểm:',
+            type: 'choice',
+            options: ['TPHCM', 'Quận 7', 'Phú Mỹ Hưng'],
+          },
+          {
+            key: 'space',
+            label: 'Chọn một không gian mà bạn thấy ấn tượng nhất:',
+            type: 'image',
+            options: [
+              'https://lh3.googleusercontent.com/gps-cs-s/AC9h4nrtCEcog3eqe2SkwHPt_UkV6Ou2VJ0DWY7Sc3v4ZA6P9uyQj908Pe4h5u-2VVBqZ4AEb8cWaAtnsXtt9Shr_Cp8V5CZK0zbBximz9SzlaENWhj3uPtSJPpNFQ2v3VLq-X2XZS3m=s680-w680-h510-rw',
+              'https://simg.zalopay.com.vn/zlp-website/assets/Nha_hang_Boomerang_Bistro_Saigon_Phu_My_Hung_772a6a7f6c.jpg',
+              'https://dynamic-media-cdn.tripadvisor.com/media/photo-o/1a/55/28/30/img-20191205-210634-685.jpg?w=900&h=500&s=1',
+            ],
+          },
+          {
+            key: 'end',
+            label:
+              'Cảm ơn bạn đã tham gia trò chơi 😊\nQuản trò sẽ liên hệ ngay.\nChúc bạn một buổi tối vui vẻ! Hết năng lượng thì cần sạc pin, còn tớ thì chỉ cần một buổi hẹn với bạn thôi.',
+            type: 'end',
           },
         ];
 
-        const STORE_KEY = 'leo_order_v3';
-        let profile = JSON.parse(localStorage.getItem(STORE_KEY) || '{}');
-        let idx = clamp(
-          parseInt(localStorage.getItem(STORE_KEY + '_idx') || '0', 10),
-          0,
-          QUESTIONS.length - 1
-        );
-
-        function clamp(n, min, max) {
-          return Math.max(min, Math.min(max, n));
-        }
-        function save() {
-          localStorage.setItem(STORE_KEY, JSON.stringify(profile));
-          localStorage.setItem(STORE_KEY + '_idx', idx);
-        }
+        let idx = 0,
+          profile = {};
 
         function render() {
           const q = QUESTIONS[idx];
-          const saved = profile[q.key];
-          quiz.classList.remove('slide-in');
-          quiz.innerHTML = `
-      <div class="q-title"><span class="pill">Q${idx + 1}/${
-            QUESTIONS.length
-          }</span><span>${q.label}</span></div>
-      <div class="options" role="group" aria-label="${q.label}">
-        ${q.options
-          .map(
-            (op) => `
-          <button class="btn ${
-            saved === op ? 'selected' : ''
-          }" data-val="${op}" aria-pressed="${saved === op}">
-            ${op}
-            ${
-              q.key === 'drink'
-                ? `<span class='price'>${VND(PRICES.drink[op])}</span>`
-                : ''
-            }
-            ${
-              q.key === 'snack'
-                ? `<span class='price'>${VND(PRICES.snack[op])}</span>`
-                : ''
-            }
-          </button>`
-          )
-          .join('')}
-      </div>`;
-          requestAnimationFrame(() => quiz.classList.add('slide-in'));
+          quiz.innerHTML = `<h2>${q.label}</h2>`;
+          nextBtn.disabled = true;
 
-          const options = quiz.querySelector('.options');
-          options.addEventListener(
-            'click',
-            (e) => {
-              const b = e.target.closest('.btn');
-              if (!b) return;
-              options.querySelectorAll('.btn').forEach((x) => {
-                x.classList.remove('selected');
-                x.setAttribute('aria-pressed', 'false');
-              });
-              b.classList.add('selected');
-              b.setAttribute('aria-pressed', 'true');
-              profile[q.key] = b.dataset.val;
-              save();
-              toastMsg(`Đã chọn: ${q.key} → ${b.dataset.val}`);
-              updateProgress();
+          if (q.type === 'choice') {
+            const div = document.createElement('div');
+            div.className = 'options';
+            q.options.forEach((op) => {
+              const b = document.createElement('button');
+              b.className = 'btn';
+              b.textContent = op;
+              b.onclick = () => {
+                div
+                  .querySelectorAll('.btn')
+                  .forEach((x) => x.classList.remove('selected'));
+                b.classList.add('selected');
+                profile[q.key] = op;
+                nextBtn.disabled = false;
+                showToast('Đã chọn: ' + op);
+              };
+              div.appendChild(b);
+            });
+            quiz.appendChild(div);
+          } else if (q.type === 'yesno') {
+            const div = document.createElement('div');
+            div.className = 'options';
+            const yes = document.createElement('button');
+            yes.className = 'btn';
+            yes.textContent = 'Có';
+            yes.onclick = () => {
+              profile[q.key] = 'Có';
               nextBtn.disabled = false;
-              if (idx === QUESTIONS.length - 1) {
-                finishBtn.disabled = !isComplete();
-              }
-            },
-            { passive: true }
-          );
-
-          prevBtn.disabled = idx === 0;
-          nextBtn.style.display = idx < QUESTIONS.length - 1 ? '' : 'none';
-          finishBtn.style.display = idx === QUESTIONS.length - 1 ? '' : 'none';
-          nextBtn.disabled = !profile[q.key];
-          finishBtn.disabled =
-            idx === QUESTIONS.length - 1 ? !profile[q.key] : !isComplete();
-
-          updateProgress();
+              showToast('Chọn Có');
+            };
+            const no = document.createElement('button');
+            no.className = 'btn';
+            no.textContent = 'Không';
+            no.onmouseover = () => {
+              no.style.position = 'absolute';
+              no.style.top = Math.random() * 200 + 'px';
+              no.style.left = Math.random() * 200 + 'px';
+            };
+            div.appendChild(yes);
+            div.appendChild(no);
+            quiz.appendChild(div);
+          } else if (q.type === 'input') {
+            const input = document.createElement('input');
+            input.placeholder = q.placeholder || '';
+            quiz.appendChild(input);
+            input.oninput = () => {
+              profile[q.key] = input.value;
+              nextBtn.disabled = !input.value.trim();
+            };
+          } else if (q.type === 'image') {
+            const div = document.createElement('div');
+            div.className = 'img-options';
+            q.options.forEach((url) => {
+              const img = document.createElement('img');
+              img.src = url;
+              img.onclick = () => {
+                div
+                  .querySelectorAll('img')
+                  .forEach((i) => i.classList.remove('selected'));
+                img.classList.add('selected');
+                profile[q.key] = url;
+                nextBtn.disabled = false;
+                showToast('Đã chọn không gian');
+              };
+              div.appendChild(img);
+            });
+            quiz.appendChild(div);
+          } else if (q.type === 'end') {
+            nextBtn.style.display = 'none';
+            sendEmail(profile);
+          }
         }
 
-        function gotoNext() {
-          if (!profile[QUESTIONS[idx].key]) return;
-          idx = clamp(idx + 1, 0, QUESTIONS.length - 1);
-          save();
-          render();
-        }
-        function isComplete() {
-          return QUESTIONS.every((q) => profile[q.key]);
-        }
-        function updateProgress() {
-          const answered = QUESTIONS.filter((q) => profile[q.key]).length;
-          const pct = Math.round((answered / QUESTIONS.length) * 100);
-          bar.style.width = pct + '%';
-          car.style.left = `calc(${pct}% - 16px)`;
-        }
-
-        function toastMsg(msg) {
+        function showToast(msg) {
           toast.textContent = msg;
           toast.classList.add('show');
-          clearTimeout(toastMsg._t);
-          toastMsg._t = setTimeout(() => toast.classList.remove('show'), 1400);
-        }
-
-        function calcTotal() {
-          if (!profile.drink) return 0;
-          const base = PRICES.drink[profile.drink] || 0;
-          const snack = PRICES.snack[profile.snack] || 0;
-          const mul = PRICES.sizeMul[profile.size || 'Vừa'] || 1;
-          return Math.round(base * mul + snack);
+          clearTimeout(showToast._t);
+          toast._t = setTimeout(() => toast.classList.remove('show'), 1500);
         }
 
         function sendEmail(data) {
-          if (!EMAIL_ENABLED || !window.emailjs) {
-            return;
-          }
-          try {
-            emailjs
-              .send(EMAIL_CONFIG.service, EMAIL_CONFIG.template, {
-                to_email: EMAIL_CONFIG.to,
-                name: 'Leo Order',
-                time: new Date().toLocaleString(),
-                message: JSON.stringify(data, null, 2),
-                voucher: data.voucher || '',
-              })
-              .then(() => toastMsg('📧 Đã gửi đơn về email!'))
-              .catch((err) => toastMsg('❌ Gửi mail thất bại'));
-          } catch (err) {
-            /* noop */
-          }
+          if (!window.emailjs) return;
+          emailjs
+            .send(EMAIL_CONFIG.service, EMAIL_CONFIG.template, {
+              to_email: EMAIL_CONFIG.to,
+              name: 'Mini Game Dating',
+              time: new Date().toLocaleString(),
+              message: JSON.stringify(data, null, 2),
+            })
+            .then(() => showToast('📧 Đã gửi mail!'))
+            .catch((err) => showToast('❌ Gửi mail lỗi: ' + err.text));
         }
 
-        function showResult() {
-          if (!isComplete()) {
-            toastMsg('⚠️ Hãy chọn đầy đủ các mục!');
-            return;
-          }
-
-          // Gửi mail ngay khi bấm Đặt (như yêu cầu)
-          const order = { ...profile, total: calcTotal(), voucher: '' };
-          sendEmail(order);
-
-          result.classList.add('show');
-
-          const rows = QUESTIONS.map(
-            (q) =>
-              `<tr><td style="padding:6px 0; color:var(--muted)">${
-                q.label
-              }</td><td style="padding:6px 0"><b>${
-                profile[q.key]
-              }</b></td></tr>`
-          ).join('');
-          const subtotal = calcTotal();
-
-          summary.innerHTML = `
-      <div>
-        <h3 style="margin:0 0 8px; color:var(--gold)">Chi tiết đơn hàng</h3>
-        <table style="width:100%; border-collapse:collapse">${rows}</table>
-        <div class="voucher">
-          <input id="voucher" placeholder="Nhập mã giảm giá (ví dụ: einahC)"/>
-          <button class="cta ghost" id="apply">Áp dụng</button>
-        </div>
-        <div class="total" id="total">Tạm tính: ${VND(
-          subtotal
-        )} • Giảm giá: 0₫ • Tổng: ${VND(subtotal)}</div>
-        <p style="margin-top:12px">✅ Đã gửi yêu cầu đặt nước, vui lòng chờ trong giây lát để nhân viên xử lý đơn hàng.</p>
-      </div>`;
-
-          // Voucher apply
-          const totalEl = document.getElementById('total');
-          document.getElementById('apply').onclick = () => {
-            const code = (
-              document.getElementById('voucher').value || ''
-            ).trim();
-            if (!code) {
-              toastMsg('Hãy nhập mã giảm giá');
-              return;
-            }
-            if (code.toLowerCase() === 'einahc') {
-              totalEl.textContent = `Tạm tính: ${VND(
-                subtotal
-              )} • Giảm giá: ${VND(subtotal)} • Tổng: ${VND(0)}`;
-              toastMsg('🎉 Áp mã einahc thành công – Giảm 100%!');
-              // Gửi mail cập nhật nếu áp voucher
-              sendEmail({ ...order, voucher: 'einahc', total: 0 });
-            } else {
-              totalEl.textContent = `Tạm tính: ${VND(
-                subtotal
-              )} • Giảm giá: 0₫ • Tổng: ${VND(subtotal)}`;
-              toastMsg('⛔ Mã không hợp lệ');
-            }
-          };
-
-          // Thông báo đặt đơn giống app
-          toastMsg('🛒 Đơn hàng đang được xử lý...');
-          setTimeout(
-            () => toastMsg('✅ Xác nhận: nhân viên đã nhận đơn!'),
-            1600
-          );
-        }
-
-        prevBtn.onclick = () => {
-          if (idx > 0) {
-            idx--;
-            save();
+        nextBtn.onclick = () => {
+          if (idx < QUESTIONS.length - 1) {
+            idx++;
             render();
           }
         };
-        nextBtn.onclick = gotoNext;
-        finishBtn.onclick = showResult;
-        resetBtn.onclick = () => {
-          profile = {};
-          idx = 0;
-          save();
-          result.classList.remove('show');
-          render();
-          updateProgress();
-        };
-
         render();
-        updateProgress();
       })();
     </script>
   </body>
 </html>
-
-
